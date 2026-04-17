@@ -1,16 +1,16 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-# Creamos la instancia de la aplicación
 app = FastAPI(title="FrontAI - Backend")
+
+# Esto permite que el Frontend se comunique con el Backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # En producción pondremos la URL real
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
-    return {
-        "mensaje": "Servidor de FrontAI activo",
-        "usuario": "dalende",
-        "estado": "listo para programar"
-    }
-
-@app.get("/test")
-def test():
-    return {"data": "Esta es una ruta de prueba"}l
+    return {"mensaje": "¡Hola desde el Backend de FrontAI!"}
